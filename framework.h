@@ -12,7 +12,7 @@ constexpr uint64_t CURRENT_GAME_SUB_STATE_ADDRESS = 0x0000000140EDA82C;			// fro
 constexpr uint64_t TaskInfoSetterAddress = 0x00000001403BB780;
 constexpr uint64_t SelPvMainAddress = 0x00000001405BA2E0;
 
-enum GameState : uint32_t					// from TLAC
+enum class GameState : uint32_t					// from TLAC
 {
 	GS_STARTUP,
 	GS_ADVERTISE,
@@ -23,7 +23,7 @@ enum GameState : uint32_t					// from TLAC
 	GS_MAX,
 };
 
-enum SubGameState : uint32_t				// from TLAC
+enum class SubGameState : uint32_t				// from TLAC
 {
 	SUB_DATA_INITIALIZE,
 	SUB_SYSTEM_STARTUP,

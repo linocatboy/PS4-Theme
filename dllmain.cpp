@@ -27,9 +27,9 @@ void HookedSelPvMain(void* param_1) {
         InjectCode((void*)0x140A3E120, { 0x00 }); // normal
         InjectCode((void*)0x140A3E178, { 0x00 }); // hard
         
+        // Change hardcoded ids
         InjectCode((void*)0x140A3A620, { 0x71, 0xF3, 0x05, 0x00 }); // 390001 = PV_LIST_BASE_EXTRA_EXTREME_01
         InjectCode((void*)0x140A3A624, { 0x72, 0xF3, 0x05, 0x00 }); // 390002 = PV_LIST_BASE_EXTRA_EXTREME_02
-
         InjectCode((void*)0x140A3A660, { 0x73, 0xF3, 0x05, 0x00 }); // 390003 = PV_LIST_BASE_SEL_EXTRA_EXTREME_01
         InjectCode((void*)0x140A3A664, { 0x74, 0xF3, 0x05, 0x00 }); // 390004 = PV_LIST_BASE_SEL_EXTRA_EXTREME_02
 
@@ -39,13 +39,15 @@ void HookedSelPvMain(void* param_1) {
     }
     else 
     {
+
+        // disable difficulty text on exex
         InjectCode((void*)0x140A3E0c8, { 0x62 }); // easy
         InjectCode((void*)0x140A3E120, { 0x62 }); // normal
         InjectCode((void*)0x140A3E178, { 0x62 }); // hard
                                
+        // Change hardcoded ids
         InjectCode((void*)0x140A3A620, { 0x30, 0x1B, 0x00, 0x00 }); // PV_LIST_BASE_EXTRA_EXTREME_01
         InjectCode((void*)0x140A3A624, { 0x31, 0x1B, 0x00, 0x00 }); // PV_LIST_BASE_EXTRA_EXTREME_02
-                               
         InjectCode((void*)0x140A3A660, { 0x2F, 0x2E, 0x00, 0x00 }); // PV_LIST_BASE_SEL_EXTRA_EXTREME_01
         InjectCode((void*)0x140A3A664, { 0x30, 0x2E, 0x00, 0x00 }); // PV_LIST_BASE_SEL_EXTRA_EXTREME_02
                                
@@ -56,16 +58,16 @@ void HookedSelPvMain(void* param_1) {
 
     if (isRandom == 1) 
     {
-        InjectCode((void*)0x140A3B991, { 0x33, 0x00 }); // list_cursor_loop_3 (easy)
-        InjectCode((void*)0x140A3BA09, { 0x33, 0x00 }); // list_cursor_loop_3 (normal)
-        InjectCode((void*)0x140A3BA81, { 0x33, 0x00 }); // list_cursor_loop_3 (hard)
-        InjectCode((void*)0x140A3BAF9, { 0x33, 0x00 }); // list_cursor_loop_3 (extreme)
+        InjectCode((void*)0x140A3B991, { 0x72, 0x61, 0x6E, 0x64 });                   // list_cursor_loop_rand (easy)
+        InjectCode((void*)0x140A3BA09, { 0x72, 0x61, 0x6E, 0x64, 0x00, 0x00 });       // list_cursor_loop_rand (normal)
+        InjectCode((void*)0x140A3BA81, { 0x72, 0x61, 0x6E, 0x64 });                   // list_cursor_loop_rand (hard)
+        InjectCode((void*)0x140A3BAF9, { 0x72, 0x61, 0x6E, 0x64, 0x00, 0x00, 0x00 }); // list_cursor_loop_rand (extreme)
     }
     else {
-        InjectCode((void*)0x140A3b991, { 0x65, 0x61 }); // list_cursor_loop_ea.. (easy)
-        InjectCode((void*)0x140A3BA09, { 0x6E, 0x6F }); // list_cursor_loop_no.. (normal)
-        InjectCode((void*)0x140A3bA81, { 0x68, 0x61 }); // list_cursor_loop_ha.. (hard)
-        InjectCode((void*)0x140A3BAF9, { 0x65, 0x78 }); // list_cursor_loop_ex.. (extreme)
+        InjectCode((void*)0x140A3b991, { 0x65, 0x61, 0x73, 0x79 });                   // list_cursor_loop_easy    (easy)
+        InjectCode((void*)0x140A3BA09, { 0x6E, 0x6F, 0x72, 0x6D, 0x61, 0x6C });       // list_cursor_loop_normal  (normal)
+        InjectCode((void*)0x140A3bA81, { 0x68, 0x61, 0x72, 0x64 });                   // list_cursor_loop_hard    (hard)
+        InjectCode((void*)0x140A3BAF9, { 0x65, 0x78, 0x74, 0x72, 0x65, 0x6D, 0x65 }); // list_cursor_loop_extreme (extreme)
     }
 
 
@@ -76,11 +78,11 @@ void HookedSelPvMain(void* param_1) {
 void HookedTaskInfo(void* param_1, int param_2) {
     SubGameState currentSubGameState = *(SubGameState*)CURRENT_GAME_SUB_STATE_ADDRESS;          // credit to somewhatlurker
 
-    if (currentSubGameState == SUB_STAGE_RESULT) 
+    if (currentSubGameState == SubGameState::SUB_STAGE_RESULT) 
     {
         param_2 = 4;
     }
-    if (currentSubGameState == SUB_TITLE || currentSubGameState == SUB_GAME_MAIN) 
+    if (currentSubGameState == SubGameState::SUB_TITLE || currentSubGameState == SubGameState::SUB_GAME_MAIN)
     {
         param_2 = 0;
     }
