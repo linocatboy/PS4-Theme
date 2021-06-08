@@ -16,10 +16,13 @@ void(*SelPvMain)(void* cls) = (void(*)(void*))SelPvMainAddress;
 
 void HookedSelPvMain(void* param_1) {
 
-    int edition = *(int*)0x141197E04;
-    int isRandom = *(int*)0x14CC12019;
+    static bool last_edition = false;
+    static bool last_random = false;
 
-    if (edition == 1) 
+    bool edition = *(int*)0x141197E04 == 1;
+    bool isRandom = *(int*)0x14CC12019 == 1;
+
+    if (edition && !last_edition) 
     {
 
         // disable difficulty text on exex
@@ -37,7 +40,7 @@ void HookedSelPvMain(void* param_1) {
 
         InjectCode((void*)0x140A3E1B8, { 0x65, 0x78, 0x74 }); // ext_level_extreme_a
     }
-    else 
+    else if (!edition && !last_edition)
     {
 
         // disable difficulty text on exex
@@ -56,20 +59,23 @@ void HookedSelPvMain(void* param_1) {
         InjectCode((void*)0x140A3E1B8, { 0x62, 0x74, 0x6e }); // btn_level_extreme_a
     }
 
-    if (isRandom == 1) 
+    if (isRandom && !last_random) 
     {
         InjectCode((void*)0x140A3B991, { 0x72, 0x61, 0x6E, 0x64 });                   // list_cursor_loop_rand (easy)
         InjectCode((void*)0x140A3BA09, { 0x72, 0x61, 0x6E, 0x64, 0x00, 0x00 });       // list_cursor_loop_rand (normal)
         InjectCode((void*)0x140A3BA81, { 0x72, 0x61, 0x6E, 0x64 });                   // list_cursor_loop_rand (hard)
         InjectCode((void*)0x140A3BAF9, { 0x72, 0x61, 0x6E, 0x64, 0x00, 0x00, 0x00 }); // list_cursor_loop_rand (extreme)
     }
-    else {
+    else if (!isRandom && !last_random)
+    {
         InjectCode((void*)0x140A3b991, { 0x65, 0x61, 0x73, 0x79 });                   // list_cursor_loop_easy    (easy)
         InjectCode((void*)0x140A3BA09, { 0x6E, 0x6F, 0x72, 0x6D, 0x61, 0x6C });       // list_cursor_loop_normal  (normal)
         InjectCode((void*)0x140A3bA81, { 0x68, 0x61, 0x72, 0x64 });                   // list_cursor_loop_hard    (hard)
         InjectCode((void*)0x140A3BAF9, { 0x65, 0x78, 0x74, 0x72, 0x65, 0x6D, 0x65 }); // list_cursor_loop_extreme (extreme)
     }
 
+    last_edition = edition;
+    last_random = isRandom;
 
     SelPvMain(param_1);
 }
