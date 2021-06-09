@@ -40,7 +40,7 @@ void HookedSelPvMain(void* param_1) {
 
         InjectCode((void*)0x140A3E1B8, { 0x65, 0x78, 0x74 }); // ext_level_extreme_a
     }
-    else if (!edition && !last_edition)
+    else if (!edition && last_edition)
     {
 
         // disable difficulty text on exex
@@ -66,7 +66,7 @@ void HookedSelPvMain(void* param_1) {
         InjectCode((void*)0x140A3BA81, { 0x72, 0x61, 0x6E, 0x64 });                   // list_cursor_loop_rand (hard)
         InjectCode((void*)0x140A3BAF9, { 0x72, 0x61, 0x6E, 0x64, 0x00, 0x00, 0x00 }); // list_cursor_loop_rand (extreme)
     }
-    else if (!isRandom && !last_random)
+    else if (!isRandom && last_random)
     {
         InjectCode((void*)0x140A3b991, { 0x65, 0x61, 0x73, 0x79 });                   // list_cursor_loop_easy    (easy)
         InjectCode((void*)0x140A3BA09, { 0x6E, 0x6F, 0x72, 0x6D, 0x61, 0x6C });       // list_cursor_loop_normal  (normal)
