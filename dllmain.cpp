@@ -275,7 +275,7 @@ void Patches() {
         InjectCode((void*)0x1409A4228, { 0x31 }); // 1rame_up_danger / frame_up_danger
 
         // loadscp
-        InjectCode((void*)0x140a92e58, { 0x5F, 0x66, 0x73 }); // load_fs
+        InjectCode((void*)0x140a92e5c, { 0x5F, 0x66, 0x73 }); // load_fs
 
         printf("[PS4 Theme] Using Future Sound Theme\n");
         break;
@@ -298,7 +298,7 @@ void Patches() {
         InjectCode((void*)0x1409A4228, { 0x32 }); // 2rame_up_danger / frame_up_danger
 
         // loadscp
-        InjectCode((void*)0x140a92e58, { 0x5F, 0x63, 0x74 }); // load_ct
+        InjectCode((void*)0x140a92e5c, { 0x5F, 0x63, 0x74 }); // load_ct
 
         printf("[PS4 Theme] Using Colorful Tone Theme\n");
         break;
